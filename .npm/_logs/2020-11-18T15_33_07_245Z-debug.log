@@ -1,0 +1,35 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'i', '@babel' ]
+2 info using npm@6.14.8
+3 info using node@v12.18.2
+4 verbose config Skipping project config: /home/ubuntu/.npmrc. (matches userconfig)
+5 verbose npm-session 4fcc16167ccff153
+6 silly install loadCurrentTree
+7 silly install readLocalPackageData
+8 timing stage:rollbackFailedOptional Completed in 1ms
+9 timing stage:runTopLevelLifecycles Completed in 200ms
+10 verbose stack Error: Invalid tag name "@babel": Tags may not have any characters that encodeURIComponent encodes.
+10 verbose stack     at invalidTagName (/usr/share/nodejs/npm-package-arg/npa.js:91:15)
+10 verbose stack     at fromRegistry (/usr/share/nodejs/npm-package-arg/npa.js:296:13)
+10 verbose stack     at resolve (/usr/share/nodejs/npm-package-arg/npa.js:81:12)
+10 verbose stack     at npa (/usr/share/nodejs/npm-package-arg/npa.js:52:10)
+10 verbose stack     at /usr/share/npm/lib/install/deps.js:231:14
+10 verbose stack     at /usr/lib/nodejs/slide/lib/async-map.js:52:35
+10 verbose stack     at Array.forEach (<anonymous>)
+10 verbose stack     at /usr/lib/nodejs/slide/lib/async-map.js:52:11
+10 verbose stack     at Array.forEach (<anonymous>)
+10 verbose stack     at asyncMap (/usr/lib/nodejs/slide/lib/async-map.js:51:8)
+10 verbose stack     at exports.getAllMetadata (/usr/share/npm/lib/install/deps.js:228:3)
+10 verbose stack     at Installer.loadArgMetadata (/usr/share/npm/lib/install.js:366:3)
+10 verbose stack     at /usr/share/npm/lib/install.js:704:16
+10 verbose stack     at /usr/share/npm/lib/install/read-shrinkwrap.js:33:16
+10 verbose stack     at tryCatcher (/usr/share/nodejs/bluebird/js/release/util.js:16:23)
+10 verbose stack     at Promise._settlePromiseFromHandler (/usr/share/nodejs/bluebird/js/release/promise.js:547:31)
+11 verbose cwd /home/ubuntu
+12 verbose Linux 5.8.0-25-generic
+13 verbose argv "/usr/bin/node" "/usr/bin/npm" "i" "@babel"
+14 verbose node v12.18.2
+15 verbose npm  v6.14.8
+16 error code EINVALIDTAGNAME
+17 error Invalid tag name "@babel": Tags may not have any characters that encodeURIComponent encodes.
+18 verbose exit [ 1, true ]
