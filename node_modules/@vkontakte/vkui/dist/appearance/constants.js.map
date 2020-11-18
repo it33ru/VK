@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/appearance/constants.ts"],"names":["tabbarHeight"],"mappings":";;;;;;AAAO,IAAMA,YAAY,GAAG,EAArB","sourcesContent":["export const tabbarHeight = 48;\n"],"file":"constants.js"}
