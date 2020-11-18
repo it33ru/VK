@@ -1,13 +1,14 @@
 {
   "name": "VKPartners",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "VK",
+  "homepage": "https://it33ru.github.io/VK",
   "main": "index.js",
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
-    "deploy": "vk-miniapps-deploy"
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "@vkontakte/vk-bridge": "^2.3.0",
+    "@vkontakte/vk-connect": "^1.9.1",
     "@vkontakte/vk-miniapps-deploy": "0.0.17",
     "babel-eslint": "^10.1.0",
     "chalk": "^2.4.2",
