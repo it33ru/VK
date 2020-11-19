@@ -6,6 +6,10 @@ import '@vkontakte/vkui/dist/vkui.css';
 import {Epic, Cell, List, Panel, PanelHeader, Tabbar, TabbarItem } from '@vkontakte/vkui';
 import {Icon28NewsfeedOutline, Icon28SearchOutline, Icon28MessageOutline, Icon28Notifications, Icon28More, Icon28ServicesOutline, Icon28ClipOutline, Icon28UserCircleOutline} from '@vkontakte/icons';
 import Home from './panels/Home';
+import Icon28GearCircleFillGray from '@vkontakte/icons/dist/28/gear_circle_fill_gray';
+import Icon28SettingsOutline from '@vkontakte/icons/dist/28/settings_outline';
+import Icon28Users3Outline from '@vkontakte/icons/dist/28/users_3_outline';
+
 class App extends React.Component {
   constructor (props) {
     super(props);
@@ -14,17 +18,36 @@ class App extends React.Component {
       activeStory: 'profile',
       activePanel : 'defaultPanel',
       fetchedUser : null,
-      userEmail : null
+      userEmail : null,
+      userId : null,
+      userFirstName : null,
+      userLastName : null,
+      userInfo : null,
+      userSign : null,
+      appId : null,
+      groupId : null,
     };
     this.onStoryChange = this.onStoryChange.bind(this);
     this.setUserEmail = this.setUserEmail.bind(this);
+    this.setUserId = this.setUserId.bind(this);
+    this.setUserFirstName = this.setUserFirstName.bind(this);
+    this.setUserLastName = this.setUserLastName.bind(this);
   }
 
   onStoryChange (e) {
     this.setState({ activeStory: e.currentTarget.dataset.story })
   }
+  setUserId(userId) {
+    this.setState({ userId });
+  }
   setUserEmail(userEmail) {
     this.setState({ userEmail });
+  }
+  setUserFirstName(userFirstName) {
+    this.setState({ userFirstName });
+  }
+  setUserLastName(userLastName) {
+    this.setState({ userLastName });
   }
   parseQueryString = (string) => {
     return string.slice(1).split('&')
@@ -42,7 +65,16 @@ componentDidMount() {
     .send('VKWebAppGetEmail')
     .then(data => this.setUserEmail(data.email))
     .catch(error => error);
-}    
+  bridge
+    .send('VKWebAppGetUserInfo')
+    .then(data => {
+      this.setUserId(data.id)
+      this.setUserFirstName(data.first_name)
+      this.setUserLastName(data.last_name)
+
+    })
+    .catch(error => error);
+}
 go = (e) => {
   this.setState({ activePanel: e.currentTarget.dataset.to })
 };
@@ -58,27 +90,29 @@ go = (e) => {
             onClick={this.onStoryChange}
             selected={this.state.activeStory === 'feed'}
             data-story="feed"
+            label="3"
             text="Новости"
           ><Icon28NewsfeedOutline /></TabbarItem>
           <TabbarItem
             onClick={this.onStoryChange}
-            selected={this.state.activeStory === 'services'}
-            data-story="services"
-            text="Сервисы"
-          ><Icon28ServicesOutline/></TabbarItem>
+            selected={this.state.activeStory === 'alerts'}
+            data-story="alerts"
+            label="7"
+            text="Уведомления"
+          ><Icon28Notifications /></TabbarItem>
           <TabbarItem
             onClick={this.onStoryChange}
-            selected={this.state.activeStory === 'messages'}
-            data-story="messages"
+            selected={this.state.activeStory === 'groups'}
+            data-story="groups"
             label="12"
-            text="Сообщения"
-          ><Icon28MessageOutline /></TabbarItem>
+            text="Группы"
+          ><Icon28Users3Outline /></TabbarItem>
           <TabbarItem
             onClick={this.onStoryChange}
-            selected={this.state.activeStory === 'clips'}
-            data-story="clips"
-            text="Клипы"
-          ><Icon28ClipOutline /></TabbarItem>
+            selected={this.state.activeStory === 'settings'}
+            data-story="settings"
+            text="Настройки"
+          ><Icon28SettingsOutline /></TabbarItem>
           <TabbarItem
             onClick={this.onStoryChange}
             selected={this.state.activeStory === 'profile'}
@@ -104,25 +138,28 @@ go = (e) => {
             </List>
           </Panel>
         </View>
-        <View id="services" activePanel="services">
-          <Panel id="services">
-            <PanelHeader>Сервисы</PanelHeader>
+        <View id="alerts" activePanel="alerts">
+          <Panel id="alerts">
+            <PanelHeader>Уведомления</PanelHeader>
           </Panel>
         </View>
-        <View id="messages" activePanel="messages">
-          <Panel id="messages">
-            <PanelHeader>Сообщения</PanelHeader>
+        <View id="groups" activePanel="groups">
+          <Panel id="groups">
+            <PanelHeader>Сообщества</PanelHeader>
           </Panel>
         </View>
-        <View id="clips" activePanel="clips">
-          <Panel id="clips">
-            <PanelHeader>Клипы</PanelHeader>
+        <View id="settings" activePanel="settings">
+          <Panel id="settings">
+            <PanelHeader>Настройки</PanelHeader>
           </Panel>
         </View>
         <View id="profile" activePanel="profile">
           <Panel id="profile">
             <PanelHeader>Профиль</PanelHeader>
             <p>E-mail: {this.state.userEmail} </p>
+            <p>ID: {this.state.userId} </p>
+            <p>Name: {this.state.userFirstName} </p>
+            <p>Surname: {this.state.userLastName} </p>
           </Panel>
         </View>
       </Epic>
