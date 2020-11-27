@@ -27,7 +27,6 @@ bridge
   .then(data => {
     // Handling received data
     console.log(data.first_name);
-    const vkname = data.first_name;
     console.log(data.last_name);
     console.log(data.id);
     console.log(data.bdate);
@@ -41,109 +40,6 @@ bridge
   .catch(error => {
     // Handling an error
   });
-
-// Subscribing to receiving events
-bridge.subscribe(event => {
-  if (!event.detail) {
-    return;
-  }
-
-  const { type, data } = event.detail;
-
-  if (type === 'VKWebAppOpenCodeReaderResult') {
-    // Reading result of the Code Reader
-    console.log(data.code_data);
-  }
-
-  if (type === 'VKWebAppOpenCodeReaderFailed') {
-    // Catching the error
-    console.log(data.error_type, data.error_data);
-  }
-});
-
-// Sending method
-bridge.send('VKWebAppOpenCodeReader', {});  
-
-//----------------------------
-//Unsubscribes a function from events listening
-
-//**Parameters**
-
-//- `fn` _required_ Event subscribed function
-
-// **Example**
-
-// ```js
-//const fn = event => {
-  // ...
-//};
-
-// Subscribing
-//bridge.subscribe(fn);
-
-// Unsubscribing
-//bridge.unsubscribe(fn);
-// ``` 
-
-//Checks if an event is available on the current device
-
-//**Parameters**
-
-//- `method` _required_ The VK Bridge method
-
-//### `bridge.isWebView()`
-
-//Returns `true` if VK Bridge is running in mobile app, or `false` if not
-
-//### `bridge.isIframe()`
-
-//Returns `true` if VK Bridge is running in iframe, or `false` if not
-
-//### `bridge.isEmbedded()`
-
-//Returns `true` if VK Bridge is running in embedded app, or `false` if not
-
-//### `bridge.isStandalone()`
-
-//Returns `true` if VK Bridge is running in standalone app, or `false` if not
-
-//## Middleware API
-
-//_Middlewares_ are pieces of code that intercept and process data between sending and receiving. Thus, by creating middlewares, you can easily log data, modify data before sending it, talking to an asynchronous API, etc. If you've used Redux, you were also probably already familiar with the concept—a similar is used here.
-
-//### `applyMiddleware(middleware1, ..., middlewareN)`
-
-//Creates the VK Bridge enhancer that applies middleware to the `send`
-//method. This is handy for a variety of task such as logging every sent
-//event. Returns the VK Bridge enhancer applying the middleware.
-
-//**Parameters**
-
-//- `middlewareN` A middleware to be applied
-
-//**Example**
-
-// ```js
-// import bridge, { applyMiddleware } from '@vkontakte/vk-bridge';
-
-// Logs the result of each sent event
-// const logger = ({ send, subscribe }) => next => async (method, props) => {
-//  const result = await next(method, props);
-//  console.log(result);
-//  return result;
-//};
-
-//const enhancedBridge = applyMiddleware(logger)(bridge);
-// ```
-// Use VK Bridge in browser
-// ```html
-//<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-
-//<script>
-  // Sends event to client
-  //vkBridge.send('VKWebAppInit');
-//</script>
-
 
 bridge.send('VKWebAppGetAuthToken', {"app_id": 7658421, "scope": "friends, photos, notify, video, wall, offline, groups, notifications, stats, email, market"})
 ReactDOM.render(<App />, document.getElementById("root"));
